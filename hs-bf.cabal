@@ -4,10 +4,10 @@ version:            0.1.0.0
 author:             jade
 maintainer:         Nils.Jadefalke@gmail.com
 
-executable hs-bf
+executable brainfuck
     main-is:          Main.hs
     other-modules:    Interpreter, Parser, Tape
-    build-depends:    transformers, parsec, base >=4.16.4.0
+    build-depends:    transformers, base >=4.16.4.0
     ghc-options:      -Wall
     hs-source-dirs:   app
     default-language: Haskell2010

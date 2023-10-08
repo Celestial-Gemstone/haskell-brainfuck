@@ -21,11 +21,8 @@ main = do args <- getArgs
           handle args
 
 handle :: [String] -> IO ()
-handle ("file" : rest) = case rest of
-  [file] -> readFile file >>= run
-  _      -> die "file takes one argument"
-handle ("string" : rest) = case rest of
-  [bf] -> run bf
-  _    -> die "string takes one argument"
+handle ["file", file] = readFile file >>= run
+handle ["string", bf] = run bf
+handle ["pipe"]       = getContents >>= run
 handle _ = die "Expected either one of 'file <file>' and 'string <brainfuck code>'"
 

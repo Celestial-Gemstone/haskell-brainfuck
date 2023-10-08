@@ -1,7 +1,8 @@
 module Tape (BrainfuckTape, next, prev, curr, apply, zeroes, set) where
+import Data.Word (Word8)
 
 data Tape a = Tape [a] a [a]
-type BrainfuckTape = Tape Int
+type BrainfuckTape = Tape Word8
 
 zeroes :: Num a => Tape a
 zeroes = Tape (repeat 0) 0 (repeat 0)

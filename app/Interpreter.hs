@@ -1,12 +1,12 @@
 module Interpreter (Brainfuck, BrainfuckInstruction(..), BrainfuckStatement(..), interpret) where
 
-import Control.Monad (unless)
+import Control.Monad             (unless)
 import Control.Monad.Trans.Class (MonadTrans (..))
 import Control.Monad.Trans.State (StateT (..), get, gets, modify)
 
-import Data.Char (chr, ord)
+import Data.Char                 (chr, ord)
 
-import Tape (BrainfuckTape, apply, curr, next, prev, set)
+import Tape                      (BrainfuckTape, apply, curr, next, prev, set)
 
 
 data BrainfuckInstruction
@@ -34,11 +34,11 @@ loop bf = do tape <- get
                  loop bf
 
 handle :: BrainfuckInstruction -> StateT BrainfuckTape IO ()
-handle Print = gets (putChar . chr . curr) >>= lift
-handle Read = modifyM (\t -> set t . ord <$> getChar)
+handle Print = gets (putChar . chr . fromEnum . curr) >>= lift
+handle Read = modifyM (\t -> set t . toEnum . ord <$> getChar)
 handle instr = modify $ case instr of
-  Increment    -> apply succ
-  Decrement    -> apply pred
+  Increment    -> apply (+1)
+  Decrement    -> apply (subtract 1)
   PointerRight -> next
   PointerLeft  -> prev
 
